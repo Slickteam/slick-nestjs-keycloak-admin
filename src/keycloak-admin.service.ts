@@ -42,7 +42,7 @@ export class KeycloakAdminService {
   public async getAccessToken(): Promise<string> {
     const accessToken = await this.keycloakAdminClient.getAccessToken();
     if (!accessToken) {
-      logger.debug('auth accessToken');
+      logger.debug('Get an access token');
       await this.auth();
     }
     let newAccessToken = accessToken ?? this.keycloakAdminClient.accessToken;
@@ -50,11 +50,13 @@ export class KeycloakAdminService {
       throw new Error(`Can't have access_token on keycloak by client_secret method`);
     }
     const decodedTokenExpTime = jwtDecode(newAccessToken)?.exp ?? 0;
-    const nowTmSecond = Math.floor(Date.now() / 1000);
+    const nowTmSecond = Math.ceil(Date.now() / 1000) + 2; // add 2 seconds in futur, in case there is other things before call api
     if (decodedTokenExpTime < nowTmSecond) {
-      logger.debug('renew accessToken');
+      logger.debug('Renew a new access token');
       await this.auth();
       newAccessToken = this.keycloakAdminClient.accessToken!;
+    } else {
+      logger.verbose(`Remain time for this access token : ${decodedTokenExpTime - nowTmSecond} seconds`);
     }
     return newAccessToken;
   }
