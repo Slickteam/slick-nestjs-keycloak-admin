@@ -17,7 +17,7 @@ export enum KeycloakActionsEmailEnum {
 export class KeycloakAdminService {
   public readonly KEYCLOAK_ADMIN_CLIENT_ID: string;
   private readonly KEYCLOAK_ADMIN_CLIENT_SECRET: string;
-  private readonly keycloakAdminClient: KeycloakAdminClient;
+  public readonly keycloakAdminClient: KeycloakAdminClient;
 
   public constructor(private configService: ConfigService) {
     const keycloakUrl = this.configService.getOrThrow<string>('KEYCLOAK_URL');

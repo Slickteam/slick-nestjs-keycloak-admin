@@ -1,7 +1,7 @@
 {
   "name": "@slickteam/nestjs-keycloak-admin",
   "description": "Module for Keycloak admin usage with Nestjs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "keywords": [
     "Slickteam",
     "Nestjs",
@@ -26,15 +26,15 @@
     "prettier:fix": "prettier --cache --write ."
   },
   "dependencies": {
-    "@nestjs/common": "^10.4.5",
-    "@nestjs/config": "^3.2.3",
+    "@nestjs/common": "^10.4.6",
+    "@nestjs/config": "^3.3.0",
     "@s3pweb/keycloak-admin-client-cjs": "^26.0.0",
     "jwt-decode": "^4.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.4.5",
     "@slickteam/prettier": "^1.0.0",
-    "@types/node": "^22.7.6",
+    "@types/node": "^22.7.9",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
