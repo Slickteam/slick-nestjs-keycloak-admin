@@ -37,10 +37,9 @@ class ExempleModule {}
 
 Nestjs
 
-- `@nestjs/common`: `^10.4.7`
-- `@nestjs/config`: `^3.3.0`
-- `@nestjs/core`: `^10.4.7`
+- `@nestjs/common`: `^11.0.4`
+- `@nestjs/config`: `^4.0.0`
 
 Keycloak
 
-- `@s3pweb/keycloak-admin-client-cjs`: `^26.0.5`
+- `@s3pweb/keycloak-admin-client-cjs`: `^26.1.0`
