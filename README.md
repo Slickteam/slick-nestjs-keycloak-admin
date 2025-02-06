@@ -37,7 +37,7 @@ class ExempleModule {}
 
 Nestjs
 
-- `@nestjs/common`: `^11.0.4`
+- `@nestjs/common`: `^11.0.7`
 - `@nestjs/config`: `^4.0.0`
 
 Keycloak
