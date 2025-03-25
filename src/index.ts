@@ -1,7 +1,8 @@
-import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { UserRepresentation } from '@s3pweb/keycloak-admin-client-cjs';
-import { KeycloakAdminService, KeycloakActionsEmailEnum } from './keycloak-admin.service';
+
+import { KeycloakActionsEmailEnum, KeycloakAdminService } from './keycloak-admin.service';
 
 function checkIfExistRealmRoleOfUser(user: { realm_access: { roles: string[] } | undefined }, roleName: string): boolean {
   return user.realm_access?.roles.includes(roleName) ?? false;
