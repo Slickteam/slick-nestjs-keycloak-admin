@@ -24,7 +24,7 @@ export class KeycloakAdminService {
     const keycloakUrl = this.configService.getOrThrow<string>('KEYCLOAK_URL');
     this.KEYCLOAK_ADMIN_CLIENT_ID = this.configService.getOrThrow('KEYCLOAK_ADMIN_CLIENT_ID');
     this.KEYCLOAK_ADMIN_CLIENT_SECRET = this.configService.getOrThrow('KEYCLOAK_ADMIN_CLIENT_SECRET');
-    this.KEYCLOAK_REALM = this.configService.getOrThrow<string>('KEYCLOAK_REALM');
+    this.KEYCLOAK_REALM = this.configService.getOrThrow<string>('KEYCLOAK_ADMIN_REALM');
 
     this._client = new KeycloakAdminClient({
       baseUrl: keycloakUrl,

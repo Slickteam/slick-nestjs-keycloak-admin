@@ -14,7 +14,7 @@ npm i -S @slickteam/nestjs-keycloak-admin
 
 ```conf
 KEYCLOAK_URL=http://localhost:8080
-KEYCLOAK_REALM=
+KEYCLOAK_ADMIN_REALM=
 KEYCLOAK_ADMIN_CLIENT_ID=
 KEYCLOAK_ADMIN_CLIENT_SECRET=5000
 ```
@@ -37,9 +37,9 @@ class ExempleModule {}
 
 Nestjs
 
-- `@nestjs/common`: `^11.0.7`
-- `@nestjs/config`: `^4.0.0`
+- `@nestjs/common`: `^11.1`
+- `@nestjs/config`: `^4.0`
 
 Keycloak
 
-- `@s3pweb/keycloak-admin-client-cjs`: `^26.1.0`
+- `@s3pweb/keycloak-admin-client-cjs`: `^26.4.7`
