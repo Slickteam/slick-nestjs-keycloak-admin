@@ -1,45 +1,140 @@
-# Slick Nestjs Keycloak Admin
+# Slick NestJS Keycloak Admin
 
-Available on npmjs.org : [@slickteam/nestjs-keycloak-admin](https://www.npmjs.com/package/@slickteam/nestjs-keycloak-admin)
+[![npm version](https://img.shields.io/npm/v/@slickteam/nestjs-keycloak-admin.svg)](https://www.npmjs.com/package/@slickteam/nestjs-keycloak-admin)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Usage
+Module NestJS pour l'administration de Keycloak via le client admin.
 
-- Install dependency
+## Installation
 
 ```bash
-npm i -S @slickteam/nestjs-keycloak-admin
+npm install @slickteam/nestjs-keycloak-admin
 ```
 
-- In your environment file, add these lines :
+## Configuration
 
-```conf
+Ajoutez les variables d'environnement suivantes :
+
+```env
 KEYCLOAK_URL=http://localhost:8080
-KEYCLOAK_ADMIN_REALM=
-KEYCLOAK_ADMIN_CLIENT_ID=
-KEYCLOAK_ADMIN_CLIENT_SECRET=5000
+KEYCLOAK_ADMIN_REALM=master
+KEYCLOAK_ADMIN_CLIENT_ID=admin-cli
+KEYCLOAK_ADMIN_CLIENT_SECRET=your-client-secret
 ```
 
-- In module where you want use this module, add this :
+| Variable | Description |
+|----------|-------------|
+| `KEYCLOAK_URL` | URL de votre serveur Keycloak |
+| `KEYCLOAK_ADMIN_REALM` | Realm utilisé pour l'authentification admin |
+| `KEYCLOAK_ADMIN_CLIENT_ID` | Client ID avec les droits d'administration |
+| `KEYCLOAK_ADMIN_CLIENT_SECRET` | Secret du client |
+
+## Utilisation
+
+### Import du module
 
 ```ts
-import { KeycloakModule } from '@slickteam/nestjs-keycloak-admin';
+import { KeycloakAdminModule } from '@slickteam/nestjs-keycloak-admin';
 
 @Module({
-  imports: [KeycloakModule],
-  controllers: [],
-  providers: [],
-  exports: [],
+  imports: [KeycloakAdminModule],
 })
-class ExempleModule {}
+class AppModule {}
 ```
 
-## Dependencies version
+### Injection du service
 
-Nestjs
+```ts
+import { KeycloakAdminService } from '@slickteam/nestjs-keycloak-admin';
 
-- `@nestjs/common`: `^11.1`
-- `@nestjs/config`: `^4.0`
+@Injectable()
+class UserService {
+  constructor(private readonly keycloakAdmin: KeycloakAdminService) {}
 
-Keycloak
+  async getUsers() {
+    return this.keycloakAdmin.findAllUsers();
+  }
+}
+```
 
-- `@s3pweb/keycloak-admin-client-cjs`: `^26.4.7`
+## API
+
+### Méthodes du service
+
+#### Utilisateurs - Lecture
+
+| Méthode | Description |
+|---------|-------------|
+| `findAllUsers()` | Récupère tous les utilisateurs |
+| `findUserByEmail(email)` | Recherche par email |
+| `findUserByUsername(username)` | Recherche par nom d'utilisateur |
+| `findUserById(id)` | Recherche par ID |
+
+#### Utilisateurs - Création et modification
+
+| Méthode | Description |
+|---------|-------------|
+| `createUser(email, firstName?, lastName?, username?, attributes?)` | Crée un utilisateur |
+| `updateAttributesOfUser(id, user, attributes)` | Met à jour les attributs |
+| `updateUserPassword(userId, newPassword)` | Change le mot de passe |
+
+#### Actions email
+
+| Méthode | Description |
+|---------|-------------|
+| `executeActionsEmail(sub, clientId?, lifespan?, redirectUri?, actions?)` | Envoie un email d'action |
+
+Actions disponibles (`KeycloakActionsEmailEnum`) :
+- `VERIFY_EMAIL` - Vérification de l'email
+- `UPDATE_PROFILE` - Mise à jour du profil
+- `CONFIGURE_TOTP` - Configuration 2FA
+- `UPDATE_PASSWORD` - Changement de mot de passe
+- `TERMS_AND_CONDITIONS` - Acceptation des CGU
+
+#### Authentification
+
+| Méthode | Description |
+|---------|-------------|
+| `getAccessToken()` | Récupère un token d'accès (avec renouvellement automatique) |
+
+### Fonctions utilitaires
+
+```ts
+import { checkIfExistRealmRoleOfUser } from '@slickteam/nestjs-keycloak-admin';
+
+// Vérifie si un utilisateur possède un rôle au niveau du realm
+const hasRole = checkIfExistRealmRoleOfUser(decodedToken, 'admin');
+```
+
+### Accès au client natif
+
+Pour des opérations avancées non couvertes par le service :
+
+```ts
+const client = this.keycloakAdmin._client;
+// Accès direct à @s3pweb/keycloak-admin-client-cjs
+```
+
+## Exports
+
+```ts
+import {
+  KeycloakAdminModule,      // Module NestJS
+  KeycloakAdminService,     // Service injectable
+  KeycloakActionsEmailEnum, // Enum des actions email
+  UserRepresentation,       // Type utilisateur Keycloak
+  checkIfExistRealmRoleOfUser, // Fonction utilitaire
+} from '@slickteam/nestjs-keycloak-admin';
+```
+
+## Dépendances
+
+| Package | Version |
+|---------|---------|
+| `@nestjs/common` | `^11.1` |
+| `@nestjs/config` | `^4.0` |
+| `@s3pweb/keycloak-admin-client-cjs` | `^26.5` |
+
+## Licence
+
+MIT
