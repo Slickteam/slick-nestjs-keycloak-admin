@@ -22,12 +22,12 @@ KEYCLOAK_ADMIN_CLIENT_ID=admin-cli
 KEYCLOAK_ADMIN_CLIENT_SECRET=your-client-secret
 ```
 
-| Variable | Description |
-|----------|-------------|
-| `KEYCLOAK_URL` | URL de votre serveur Keycloak |
-| `KEYCLOAK_ADMIN_REALM` | Realm utilisé pour l'authentification admin |
-| `KEYCLOAK_ADMIN_CLIENT_ID` | Client ID avec les droits d'administration |
-| `KEYCLOAK_ADMIN_CLIENT_SECRET` | Secret du client |
+| Variable                       | Description                                 |
+| ------------------------------ | ------------------------------------------- |
+| `KEYCLOAK_URL`                 | URL de votre serveur Keycloak               |
+| `KEYCLOAK_ADMIN_REALM`         | Realm utilisé pour l'authentification admin |
+| `KEYCLOAK_ADMIN_CLIENT_ID`     | Client ID avec les droits d'administration  |
+| `KEYCLOAK_ADMIN_CLIENT_SECRET` | Secret du client                            |
 
 ## Utilisation
 
@@ -63,28 +63,29 @@ class UserService {
 
 #### Utilisateurs - Lecture
 
-| Méthode | Description |
-|---------|-------------|
-| `findAllUsers()` | Récupère tous les utilisateurs |
-| `findUserByEmail(email)` | Recherche par email |
+| Méthode                        | Description                     |
+| ------------------------------ | ------------------------------- |
+| `findAllUsers()`               | Récupère tous les utilisateurs  |
+| `findUserByEmail(email)`       | Recherche par email             |
 | `findUserByUsername(username)` | Recherche par nom d'utilisateur |
-| `findUserById(id)` | Recherche par ID |
+| `findUserById(id)`             | Recherche par ID                |
 
 #### Utilisateurs - Création et modification
 
-| Méthode | Description |
-|---------|-------------|
-| `createUser(email, firstName?, lastName?, username?, attributes?)` | Crée un utilisateur |
-| `updateAttributesOfUser(id, user, attributes)` | Met à jour les attributs |
-| `updateUserPassword(userId, newPassword)` | Change le mot de passe |
+| Méthode                                                            | Description              |
+| ------------------------------------------------------------------ | ------------------------ |
+| `createUser(email, firstName?, lastName?, username?, attributes?)` | Crée un utilisateur      |
+| `updateAttributesOfUser(id, user, attributes)`                     | Met à jour les attributs |
+| `updateUserPassword(userId, newPassword)`                          | Change le mot de passe   |
 
 #### Actions email
 
-| Méthode | Description |
-|---------|-------------|
+| Méthode                                                                  | Description              |
+| ------------------------------------------------------------------------ | ------------------------ |
 | `executeActionsEmail(sub, clientId?, lifespan?, redirectUri?, actions?)` | Envoie un email d'action |
 
 Actions disponibles (`KeycloakActionsEmailEnum`) :
+
 - `VERIFY_EMAIL` - Vérification de l'email
 - `UPDATE_PROFILE` - Mise à jour du profil
 - `CONFIGURE_TOTP` - Configuration 2FA
@@ -93,8 +94,8 @@ Actions disponibles (`KeycloakActionsEmailEnum`) :
 
 #### Authentification
 
-| Méthode | Description |
-|---------|-------------|
+| Méthode            | Description                                                 |
+| ------------------ | ----------------------------------------------------------- |
 | `getAccessToken()` | Récupère un token d'accès (avec renouvellement automatique) |
 
 ### Fonctions utilitaires
@@ -119,20 +120,24 @@ const client = this.keycloakAdmin._client;
 
 ```ts
 import {
-  KeycloakAdminModule,      // Module NestJS
-  KeycloakAdminService,     // Service injectable
-  KeycloakActionsEmailEnum, // Enum des actions email
-  UserRepresentation,       // Type utilisateur Keycloak
+  // Service injectable
+  KeycloakActionsEmailEnum,
+  KeycloakAdminModule,
+  // Module NestJS
+  KeycloakAdminService,
+  // Enum des actions email
+  UserRepresentation,
+  // Type utilisateur Keycloak
   checkIfExistRealmRoleOfUser, // Fonction utilitaire
 } from '@slickteam/nestjs-keycloak-admin';
 ```
 
 ## Dépendances
 
-| Package | Version |
-|---------|---------|
-| `@nestjs/common` | `^11.1` |
-| `@nestjs/config` | `^4.0` |
+| Package                             | Version |
+| ----------------------------------- | ------- |
+| `@nestjs/common`                    | `^11.1` |
+| `@nestjs/config`                    | `^4.0`  |
 | `@s3pweb/keycloak-admin-client-cjs` | `^26.5` |
 
 ## Licence
