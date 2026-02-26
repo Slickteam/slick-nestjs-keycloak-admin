@@ -45,7 +45,12 @@ export class KeycloakAdminService {
   }
 
   public async getAccessToken(): Promise<string> {
-    const accessToken = await this._client.getAccessToken();
+    let accessToken;
+    try {
+      accessToken = await this._client.getAccessToken();
+    } catch {
+      //
+    }
     if (!accessToken) {
       logger.debug('Get an access token');
       await this.auth();
